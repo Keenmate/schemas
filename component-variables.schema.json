@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/keenmate/schemas/main/component-variables.schema.json",
   "title": "Component Variables Manifest",
-  "description": "Declares which --base-* CSS variables a component consumes. Used by theme-designer to show relevant variables when theming a component.",
+  "description": "Declares CSS custom properties for a KeenMate web component - both the --base-* variables it consumes and the component-specific variables it exposes.",
   "type": "object",
-  "required": ["component", "version", "variables"],
+  "required": ["component", "prefix", "baseVariables", "componentVariables"],
   "properties": {
     "$schema": {
       "type": "string",
@@ -14,45 +14,28 @@
       "type": "string",
       "description": "Component package name (e.g., @keenmate/web-grid)"
     },
-    "version": {
+    "prefix": {
       "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$",
-      "description": "Semantic version of the component"
+      "pattern": "^[a-z]+$",
+      "description": "CSS variable prefix without dashes (e.g., 'wg' for --wg-*)"
     },
-    "description": {
-      "type": "string",
-      "description": "Brief description of the component"
-    },
-    "variables": {
+    "baseVariables": {
       "type": "array",
-      "description": "List of --base-* variables this component consumes",
+      "description": "List of --base-* variables this component consumes from the theme layer",
       "items": {
-        "$ref": "#/definitions/variableReference"
+        "$ref": "#/definitions/baseVariable"
       }
     },
-    "categories": {
+    "componentVariables": {
       "type": "array",
-      "description": "Categories of variables this component uses (for filtering in theme-designer UI)",
+      "description": "List of component-specific CSS variables (--prefix-*) the component exposes",
       "items": {
-        "type": "string",
-        "enum": [
-          "accent",
-          "text",
-          "surface",
-          "border",
-          "input",
-          "dropdown",
-          "tooltip",
-          "typography",
-          "spacing",
-          "contextual",
-          "interactive"
-        ]
+        "$ref": "#/definitions/componentVariable"
       }
     }
   },
   "definitions": {
-    "variableReference": {
+    "baseVariable": {
       "type": "object",
       "required": ["name"],
       "properties": {
@@ -63,16 +46,31 @@
         },
         "required": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Whether this variable is required for the component to render correctly"
-        },
-        "fallback": {
-          "type": "string",
-          "description": "Fallback value if the variable is not defined"
         },
         "usage": {
           "type": "string",
-          "description": "Human-readable description of how/where this variable is used"
+          "description": "How this variable is used in the component"
+        }
+      }
+    },
+    "componentVariable": {
+      "type": "object",
+      "required": ["name", "category"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z]+-[a-z0-9-]+$",
+          "description": "Component variable name without -- prefix (e.g., wg-header-bg)"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category for grouping in theme-designer UI (e.g., header, cell, toolbar)"
+        },
+        "usage": {
+          "type": "string",
+          "description": "What this variable controls in the UI"
         }
       }
     }
