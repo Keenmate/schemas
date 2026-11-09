@@ -1,0 +1,25 @@
+{
+	admin off
+}
+
+:8080 {
+	root * /srv
+	encode gzip zstd
+
+	header {
+		Access-Control-Allow-Origin *
+		Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+		X-Content-Type-Options nosniff
+	}
+
+	@schemas path *.json
+	header @schemas {
+		Content-Type "application/schema+json; charset=utf-8"
+		Cache-Control "public, max-age=3600"
+	}
+
+	# Unversioned convenience alias -> latest major. Never use these as $id.
+	redir /component-variables/latest.schema.json /component-variables/v1.schema.json 302
+
+	file_server browse
+}

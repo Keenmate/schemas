@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://raw.githubusercontent.com/keenmate/schemas/main/component-variables.schema.json",
+  "$id": "https://schemas.keenmate.dev/component-variables/v1.schema.json",
   "title": "Component Variables Manifest",
   "description": "Declares CSS custom properties for a KeenMate web component - both the --base-* variables it consumes and the component-specific variables it exposes.",
   "type": "object",
