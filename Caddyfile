@@ -4,6 +4,7 @@
 
 :8080 {
 	root * /srv
+	log
 	encode gzip zstd
 
 	header {
@@ -15,7 +16,7 @@
 	@schemas path *.json
 	header @schemas {
 		Content-Type "application/schema+json; charset=utf-8"
-		Cache-Control "public, max-age=3600"
+		Cache-Control "public, no-cache"
 	}
 
 	# Unversioned convenience alias -> latest major. Never use these as $id.
