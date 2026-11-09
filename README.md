@@ -24,7 +24,7 @@ Served at `https://schemas.keenmate.dev/<schema-name>/v<major>.schema.json`.
 ## Running
 
 ```sh
-make image-build   # build registry.km8.es/schemas:prod
+make image-build   # build registry.km8.es/keenmate-dev-schemas:prod
 make image-run     # serve on http://localhost:12000
 make image-stop
 make image-clean   # remove container + image

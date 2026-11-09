@@ -4,8 +4,8 @@
 
 -include .makefile.env
 DOCKER_RUNNER  ?= podman
-IMAGE_NAME     ?= registry.km8.es/schemas:prod
-CONTAINER_NAME ?= schemas
+IMAGE_NAME     ?= registry.km8.es/keenmate-dev-schemas:prod
+CONTAINER_NAME ?= keenmate-dev-schemas
 IMAGE_PORT     ?= 12000
 
 help: ## Show this help message
